@@ -25,6 +25,25 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            if (showBiometrics)
+              ElevatedButton(
+                  onPressed: () async {
+                    isAuthenticated = await BiometricHelper().authenticate();
+                    setState(() {});
+                  },
+                  child: const Text("Biometric login")),
+            const SizedBox(
+              height: 20,
+            ),
+            if (isAuthenticated) const Text("Well done authenticated")
+          ],
+        ),
+      ),
+    );
   }
 }
